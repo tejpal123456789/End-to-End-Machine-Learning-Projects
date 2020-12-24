@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import pickle
+model=pickle.load(open('student_marks.pkl','rb'))
+import streamlit as st
+st.title('Student Marks Prediction')
+nav=st.sidebar.radio(label='Navigation',options=['Home','Prediction','Contribute'])
+if nav=='Home':
+ st.image('iitb_students.jpg')
+if st.checkbox('I agree with T&C'):
+ st.write('Good Luck for your marks')
+
+if nav=='Prediction':
+ st.header('Know your marks Here')
+ input=st.number_input('Enter your studying hours here',0.0,18.0)
+ feature=np.array(input).reshape(-1,1)
+ pred=model.predict(feature)[0]
+ if pred<=100:
+
+  if st.button('predict'):
+   st.success(f'your predicted marks is {round(pred)}')
+ else:
+  if st.button('predict'):
+   st.success('Congrats you are going to get very good marks in the exam very close to 100')
